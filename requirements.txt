@@ -12,6 +12,7 @@ pandas>=0.19
 click==7.1.2
 pickleshare==0.7.5
 torch
+torch.utils.data
 torchvision
 PIL
 os
