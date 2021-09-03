@@ -19,7 +19,10 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     ''' This will predict the species of the flower'''
-    model = mtcnn(request.get_data())
+    file = request.files['image']
+    img_path = "static/"+file.filename
+    img.save(img_path)
+    model = mtcnn(img_path)
     a = x.mtcnn_obj()
     conv = list(a)
     box, probs, landmark = a[0], a[1], a[2]
