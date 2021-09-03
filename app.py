@@ -29,7 +29,7 @@ def predict():
     get = get_json(box, probs, landmark)
     obj = get.return_result()
     
-    return render_template('index.html', prediction_faces='The detected facial features are {}'.format(obj))
+    return render_template('index.html', prediction_text='The detected facial features are {}'.format(obj))
 
 if __name__ == "__main__":
     app.run(debug=True)
