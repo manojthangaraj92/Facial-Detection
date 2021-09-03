@@ -19,7 +19,7 @@ def index():
 @app.route('/predict', methods=['POST'])
 def predict():
     ''' This will predict the species of the flower'''
-    model = mtcnn(request.form.values())
+    model = mtcnn(request.get_data())
     a = x.mtcnn_obj()
     conv = list(a)
     box, probs, landmark = a[0], a[1], a[2]
