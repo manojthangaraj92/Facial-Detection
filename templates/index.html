@@ -14,7 +14,7 @@
 			<h1>Predict the Faces</h1>
 			<!--Main input to the model-->
 			<form action="{{ url_for('predict')}}"method="post">
-				<input type="image" name="image" placeholder="Image containing atleast one face" required="required" />
+				<input type="file" id="image" name="image" placeholder="Image containing atleast one face" required="required" />
 				
 				
 				<button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
