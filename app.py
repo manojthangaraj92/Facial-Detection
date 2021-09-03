@@ -23,7 +23,7 @@ def predict():
     img_path = "static/"+file.filename
     file.save(img_path)
     model = mtcnn(img_path)
-    a = x.mtcnn_obj()
+    a = model.mtcnn_obj()
     conv = list(a)
     box, probs, landmark = a[0], a[1], a[2]
     get = get_json(box, probs, landmark)
