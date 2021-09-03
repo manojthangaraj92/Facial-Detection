@@ -20,7 +20,7 @@ def index():
 def predict():
     ''' This will predict the species of the flower'''
     file = request.files['image']
-    img_path = "static/"+file
+    img_path = "static/"+file +img.filename
     img.save(img_path)
     model = mtcnn(img_path)
     a = x.mtcnn_obj()
