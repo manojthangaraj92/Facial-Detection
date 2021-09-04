@@ -51,5 +51,33 @@ class mtcnn(file_read):
         network = MTCNN(keep_all=True, device=device, post_process=False, select_largest=False)
         self.boxes, self.probs, self.landmarks = network.detect(self.frame, landmarks=True)
         return self.boxes.tolist(), self.probs.tolist(), self.landmarks.tolist() 
+
+class Face_Detector:
+    
+    def __init__(self,mtcnn):
+        self.mtcnn = mtcnn
+        
+    def return_frame(self,boxes,img):
+        for box in boxes:
+            x_left = min(box[0],box[2])
+            x_right = max(box[0], box[2])
+            y_left = min(box[1], box[3])
+            y_right = max(box[1],box[3])
+            self.img = cv2.rectangle(img, (int(x_left), int(y_left)),(int(x_right), int(y_right)), 
+                                (255, 0, 0), 2)
+            #self.frame1 = Image.fromarray(self.img)
+
+        return self.img
+    
+    def detect_mtcnn(self,image):
+        img = cv2.imread(image,1)
+        img1 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        boxes, probs = self.mtcnn.detect(img1)
+        
+        self.x = self.return_frame(boxes,img1)
+        frame = Image.fromarray(self.x)
+        plt.figure(figsize=(12, 8))
+        plt.imshow(frame)
+        plt.axis('off')
         
 
