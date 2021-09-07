@@ -14,12 +14,11 @@
 			<h1>Predict the Faces</h1>
 			<!--Main input to the model-->
 			<form action="{{ url_for('predict')}}" method="post", enctype="multipart/form-data">
-				<input type="text" name="image_size" placeholder="image_size" />
+				<br> <input type="text" name="image_size" placeholder="image_size" />
 				<input type="text" name="image_margin" placeholder="image_margin" />
-				<input type="file" id="image" name="image" placeholder="Image containing atleast one face"/>
-				<button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-				<input type="url" id="url" name="url" placeholder="url containing atleast one face"/>
-				<button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+				<br> <br> <input type="file" id="image" name="image" placeholder="Image containing atleast one face" />
+				<br> <br> <input type="url" id="url" name="url" placeholder="url containing atleast one face"/>
+				<br> <br> <input type="submit" class="button" value="PREDICT">
 			</form>
 			
 			<br>
@@ -28,7 +27,7 @@
 			{{faces}}
 			
 			<div id="auto">
-			<image src="{{prediction_text}}" alt="Predicition">
+			<image src="{{ prediction_text }}" alt="Predicition">
 			</div>
 			
 			<ul>{% for your_list_element in your_list %}</ul>

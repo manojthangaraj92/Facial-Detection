@@ -87,7 +87,7 @@ class Face_Detector:
         
         self.x = self.return_frame(boxes,img)
         x = random.choice(string.ascii_letters)
-        jpg_name = f'\detected_img_{x}.jpg'
+        jpg_name = f'detected_img_{x}.jpg'
         filename = file_path + jpg_name
         cv2.imwrite(filename, cv2.cvtColor(self.x, cv2.IMREAD_COLOR))
         #file_path = f'static\{filename}'
