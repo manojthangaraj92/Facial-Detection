@@ -7,8 +7,8 @@
 #import the required libraries
 import numpy as np
 from flask import Flask, request, jsonify, render_template, send_file
-from model.package.json import get_json
-from model.package.mtcnn import file_read, mtcnn, Face_Detector, return_json
+#from model.package.json import get_json
+from model.package.mtcnn import Face_Detector, return_json
 from facenet_pytorch import MTCNN
 import os
 import json
@@ -44,10 +44,10 @@ def predict():
     #obj = get.return_result()
     x =  MTCNN(image_size=text1, margin=text2, keep_all=True, device='cpu', post_process=False, select_largest=False)
     fcd = Face_Detector(x)
-    file_path = 'D:\\Repository\Facial-Detection\static'
+    file_path = 'static/'
     a = fcd.detect_mtcnn(img_path,file_path)
     files, box, probs = a[0], a[1], a[2]
-    full_filename = os.path.join('static', files[1:])
+    full_filename = os.path.join('static', files)
     json_s = return_json(a)
     json_result = json_s.return_result(file_path)
     json_files = os.path.join('static', json_result[1:])
@@ -61,5 +61,5 @@ def predict():
     return render_template('index.html', prediction_text=full_filename, your_list=your_list, faces=f"The predicted number of faces are {len_of_faces}.")
     #return send_file(a, mimetype='image/jpg')
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)
 

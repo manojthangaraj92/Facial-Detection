@@ -13,4 +13,4 @@ click==7.1.2
 pickleshare==0.7.5
 Pillow
 facenet_pytorch
-opencv-python
+opencv-python-headless

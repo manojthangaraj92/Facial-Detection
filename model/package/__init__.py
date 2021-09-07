@@ -5,5 +5,5 @@
 
 
 from .json import get_json
-from .mtcnn import file_read, mtcnn, Face_Detector
+from .mtcnn import Face_Detector, return_json
 
