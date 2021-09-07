@@ -14,6 +14,10 @@ from PIL import Image
 import os
 import json
 import cv2
+from matplotlib import pyplot as plt
+import random
+import string
+import urllib
 
 
 class file_read:
@@ -69,15 +73,49 @@ class Face_Detector:
 
         return self.img
     
-    def detect_mtcnn(self,image):
-        img = cv2.imread(image,1)
-        img1 = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-        boxes, probs = self.mtcnn.detect(img1)
+    def detect_mtcnn(self,image,file_path):
+        try:
+            url = image
+            url_response = urllib.request.urlopen(url)
+            img_array = np.array(bytearray(url_response.read()), dtype=np.uint8)
+            img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
+        except:
+            img = cv2.imread(image,1)
+            img = cv2.cvtColor(img, cv2.IMREAD_COLOR)
+
+        boxes, probs = self.mtcnn.detect(img)
         
-        self.x = self.return_frame(boxes,img1)
-        frame = Image.fromarray(self.x)
-        plt.figure(figsize=(12, 8))
-        plt.imshow(frame)
-        plt.axis('off')
+        self.x = self.return_frame(boxes,img)
+        x = random.choice(string.ascii_letters)
+        jpg_name = f'\detected_img_{x}.jpg'
+        filename = file_path + jpg_name
+        cv2.imwrite(filename, cv2.cvtColor(self.x, cv2.IMREAD_COLOR))
+        #file_path = f'static\{filename}'
+        return jpg_name, boxes, probs#cv2.imwrite(filename, self.x)
+
+class return_json:
+    def __init__(self,a):
+        self.filename = a[0]
+        self.boxes = a[1].tolist()
+        self.probs = a[2].tolist()
+        
+    def get_dict(self, indices):
+        json_dict = dict()
+        json_dict['box'] = self.boxes[indices]
+        json_dict['confidence'] =self.probs[indices]
+        return json_dict
+    def return_result(self,file_path): 
+        lists=list()
+        for i in range(len(self.boxes)):
+            x = self.get_dict(i)
+            i+=1
+            lists.append(x)
+
+        files = f'/json{random.choice(string.ascii_letters)}.json'
+            
+        with open(file_path+files, "w") as outfile:
+            json.dump(lists, outfile)
+
+        return files
         
 
