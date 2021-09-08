@@ -23,7 +23,7 @@ def index():
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    ''' This will predict the species of the flower'''
+    ''' This will predict the species of the faces'''
     text1 = request.form['image_size']
     text1 = int(text1)
     text2 = request.form['image_margin']
